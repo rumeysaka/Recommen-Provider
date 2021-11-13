@@ -1,0 +1,36 @@
+<div class="form-group ">
+    <div>
+        <label class="text-light">Title</label>
+        <input type="text" name="title" value="<%= track.title %>">
+    </div>
+    <div>
+        <label class="text-light">Artist</label>
+        <select name="artist">
+            <% artists.forEach(artist => { %>
+            <% if (artist.id === track.artist) { %>
+            <option selected label="<%= artist.name %>" value="<%= artist.id %>">
+                <% } else { %>
+            <option label="<%= artist.name %>" value="<%= artist.id %>">
+                <% } %>
+                <% }) %>
+        </select>
+    </div>
+    <div>
+        <label class="text-light">Release Date</label>
+        <input type="date" name="releaseDate"
+            value="<%= track.releaseDate == null ? "" : track.releaseDate.toISOString().split("T")[0] %>">
+    </div>
+    <div>
+        <label class="text-light">Duration</label>
+        <input type="number" name="duration" min="1" value="<%= track.duration %>">
+    </div>
+    <div>
+        <label class="text-light">Cover</label>
+        <input type="file" name="cover">
+    </div>
+    <div>
+        <label class="text-light">Description</label>
+        <textarea name="description"><%= track.description %> </textarea>
+    </div>
+    
+</div>

@@ -9,6 +9,7 @@ const bodyParser = require("body-parser")
 
 const indexRouter = require("./routes/index")
 const artistRouter = require("./routes/artists")
+const trackRouter = require("./routes/tracks")
 
 app.set("view engine" , "ejs")
 app.set("views", __dirname + "/views")
@@ -25,5 +26,6 @@ db.once("open" , () => console.log("Connected to Mongoose"))
 
 app.use("/", indexRouter)
 app.use("/artists", artistRouter)//every route inside artistRouter will be pre pended with artists
+app.use("/tracks", trackRouter)
 
 app.listen(process.env.PORT || 3000)
