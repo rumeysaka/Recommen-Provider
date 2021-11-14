@@ -23,10 +23,9 @@
     <div>
         <label class="text-light">Duration</label>
         <input type="number" name="duration" min="1" value="<%= track.duration %>">
-    </div>
-    <div>
-        <label class="text-light">Cover</label>
-        <input type="file" name="cover">
+    </div><label class="text-light" style="float:left;">Cover</label>
+    <div style="width:200px; height:200px; margin-left:65px; margin-bottom: 20px;">        
+        <input type="file" name="cover" class="filepond">
     </div>
     <div>
         <label class="text-light">Description</label>

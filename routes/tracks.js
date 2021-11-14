@@ -1,18 +1,9 @@
 const express = require('express')
 const router = express.Router()
-const multer = require('multer')
-const path = require('path')
-const fs = require('fs')
 const Track = require('../models/track')
 const Artist = require('../models/artist')
-const uploadPath = path.join('public', Track.coverImageBasePath)
 const imageMimeTypes = ['image/jpeg', 'image/png', 'images/gif']
-const upload = multer({
-  dest: uploadPath,
-  fileFilter: (req, file, callback) => {
-    callback(null, imageMimeTypes.includes(file.mimetype))
-  }
-})
+
 
 // All Tracks Route
 router.get('/', async (req, res) => {
@@ -48,34 +39,25 @@ router.get('/new', async (req, res) => {
 })
 
 // Create Track Route
-router.post('/', upload.single('cover'), async (req, res) => {
+router.post('/', async (req, res) => {
   const fileName = req.file != null ? req.file.filename : null
   const track = new Track({
     title: req.body.title,
     artist: req.body.artist,
     releaseDate: new Date(req.body.releaseDate),
     duration: req.body.duraiton,
-    coverImageName: fileName,
     description: req.body.description
   })
 
+  saveCover(track, req.body.cover)
+
   try {
     const newTrack = await track.save()
-    // res.redirect(`books/${newBook.id}`)
     res.redirect("tracks")
   } catch {
-    if (track.coverImageName != null) {
-      removeTrackCover(track.coverImageName)
-    }
     renderNewPage(res, track, true)
-  }
+    }
 })
-
-function removeTrackCover(fileName) {
-  fs.unlink(path.join(uploadPath, fileName), err => {
-    if (err) console.error(err)
-  })
-}
 
 async function renderNewPage(res, track, hasError = false) {
   try {
@@ -88,6 +70,15 @@ async function renderNewPage(res, track, hasError = false) {
     res.render('tracks/new', params)
   } catch {
     res.redirect('/tracks')
+  }
+}
+
+function saveCover(track, coverEncoded) {
+  if(coverEncoded== null) return
+  const cover = JSON.parse(coverEncoded)
+  if(cover != null && imageMimeTypes.includes(cover.type)){
+    track.coverImage = new Buffer.from(cover.data, "base64")
+    track.coverImageType = cover.type
   }
 }
 
