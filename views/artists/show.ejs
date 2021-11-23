@@ -1,0 +1,17 @@
+<nav class="container"> 
+    <div class="mx-auto"> <h2>Edit Artist</h2> 
+ 
+<h2 class="text-light"><%= artist.name %> </h2>
+<button class="btn btn-primary"><a class="text-light" href="/artist/<%= artist.id %> /edit">Edit</a></button>
+
+<%- include('../partials/deleteForm',
+                 { url: `/artist/${artist.id}`}) %> 
+
+<% if (tracksByArtist.length > 0) { %>
+    <h2>Tracks by Artist</h2>
+    <% tracksByArtist.forEach(track => { %>
+      <img height="150" width="100" src="<%= track.coverImagePath %>">
+    <% }) %>
+  <% } %>                
+    </div>
+</nav>

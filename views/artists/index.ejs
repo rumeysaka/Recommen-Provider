@@ -8,5 +8,9 @@
 </form>
 <br>
 <% artists.forEach(artist => { %>
-  <div><%= artist.name %></div>
-<% }) %>
+  <h4><%= artist.name %></h4>
+  <button class="btn btn-primary"><a class="text-light" href="/artists/<%= artist.id %>">View</a></button>
+  <button class="btn btn-success"><a class="text-light" href="/artists/<%= artist.id %>/edit">Edit</a></button>
+  <%- include('../partials/deleteForm',
+  { url: `/artists/${artist.id}` }) %>
+  <% }) %>
