@@ -19,6 +19,7 @@
   </form>
   <br>
   <% tracks.forEach(track => { %>
+    <a href="/tracks/<%= track.id %>">
   <img src="<%= track.coverImagePath %> " height="150" width="150">
-
+</a>
   <% }) %>

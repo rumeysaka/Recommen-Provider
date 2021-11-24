@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router()
 const Track = require('../models/track')
 const Artist = require('../models/artist')
+const { redirect } = require('express/lib/response')
 const imageMimeTypes = ['image/jpeg', 'image/png', 'images/gif']
 
 
@@ -46,28 +47,105 @@ router.post('/', async (req, res) => {
     artist: req.body.artist,
     releaseDate: new Date(req.body.releaseDate),
     duration: req.body.duraiton,
-    description: req.body.description
+    genre: req.body.genre
   })
 
   saveCover(track, req.body.cover)
 
   try {
     const newTrack = await track.save()
-    res.redirect("tracks")
+    res.redirect(`tracks/${newTrack.id}`)
   } catch {
     renderNewPage(res, track, true)
     }
 })
+// show track route
+router.get("/:id", async (req,res) =>{
+  try{
+    const track = await Track.findById(req.params.id)
+                            .populate("artist")
+                            .exec()
+    res.render("tracks/show", {track: track})
+  } catch{
+    res.redirect("/")
+  }
+})
+
+// Edit Track Route
+router.get('/:id/edit', async (req, res) => {
+  try{
+    const track =await Track.findById(req.params.id)
+    renderEditPage(res, track)
+  } catch{
+    res.redirect("/")
+  }
+})
+// Update Track Route
+router.put('/:id', async (req, res) => {
+  let track
+  try {
+    track = await Track.findById(req.params.id)
+    track.title = req.body.title
+    track.artist = req.body.artist
+    track.releaseDate = new Date(req.body.releaseDate)
+    track.duration = req.body.duration
+    track.genre = req.body.genre
+    if(req.body.cover != null && req.body.cover !==""){
+      saveCover(track, req.body.cover)
+    }
+    await track.save()
+    res.redirect(`/tracks/${track.id}`)
+  } catch {
+    if (track != null) {
+      renderEditPage(res, track, true)
+    } else {
+      redirect('/')
+    }
+    }
+})
+// Delete Track Page
+router.delete('/:id', async (req, res) => {
+  let track
+  try {
+    track = await Track.findById(req.params.id)
+    await track.remove()
+    res.redirect('/tracks')
+  } catch {
+    if (track != null) {
+      res.render('tracks/show', {
+        track: track,
+        errorMessage: 'Could not remove track'
+      })
+    } else {
+      res.redirect('/')
+    }
+  }
+})
 
 async function renderNewPage(res, track, hasError = false) {
+  renderFormPage(res ,track, "new", hasError)
+}
+
+async function renderEditPage(res, track, hasError = false) {
+  renderFormPage(res ,track, "edit", hasError)
+}
+
+async function renderFormPage(res, track, form, hasError = false) {
   try {
     const artists = await Artist.find({})
     const params = {
       artists: artists,
       track: track
     }
+    if(hasError){
+      if(form === "edit"){
+        params.errorMessage="Error Updating the Track"
+      } else{
+        params.errorMessage="Error Creating the Track"
+      }
+    }
     if (hasError) params.errorMessage = 'Error Creating Track'
-    res.render('tracks/new', params)
+    res.render(`tracks/${form}`, params)
   } catch {
     res.redirect('/tracks')
   }

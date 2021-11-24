@@ -1,0 +1,8 @@
+<nav class="container"> 
+    <div class="form-group "><h2>New Tracks</h2> 
+        <form action="/tracks/<%= track.id %>?_method=PUT" method="POST">
+        <%- include("_form_fields") %> 
+
+    <button class="btn btn-primary"><a href="/tracks" class="text-light">Cancel</a></button>
+    <button type="submit" class="btn btn-primary">Update</button>
+</form></nav></div>

@@ -5,7 +5,7 @@ const trackSchema = new mongoose.Schema({
         type: String,
         require: true
     },
-    description: {
+    genre: {
         type: String
     },
     releaseDate: {
