@@ -18,8 +18,11 @@
   <button class="btn btn-success" type="submit">Search</button>
   </form>
   <br>
+  <br>
   <% tracks.forEach(track => { %>
     <a href="/tracks/<%= track.id %>">
-  <img src="<%= track.coverImagePath %> " height="150" width="150">
-</a>
+  <img class="d-inline"  src="<%= track.coverImagePath %> " height="75" width="75">
+    </a>  
+    <a href="/tracks/<%= track.id %>"><h5 class="d-inline text-light"  ><%= track.title %> </h5></a>
+  <br>
   <% }) %>

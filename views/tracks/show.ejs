@@ -1,14 +1,15 @@
 <nav class="container"> 
-    <div class="mx-auto">
+    <div class="mx-auto text-light">
         <h2><%= track.title %> </h2>
         <img width="200" height="200" src="<%= track.coverImagePath %>" alt="">
-        <div>Artist: <%= track.artist.name %> </div>
-        <div>Release Date: <%= track.releaseDate.toDateString() %> </div>
-        <div>Duration: <%= track.duration %></div>
-        <div>Genre: <%= track.genre %> </div>
-
-        <a href="/tracks/<%= track.id %>/edit">Edit</a>
+        <br><br>
+        <div><h4>Artist: <%= track.artist.name %> </h4></div>
+        <div><h4>Release Date: <%= track.releaseDate.toDateString() %> </h4></div>
+        <div><h4>Duration: <%= track.duration %></h4></div>
+        <div><h4>Genre: <%= track.genre %> </h4></div>
+<br>
+        <button class="btn btn-primary"><a class="text-light" href="/tracks/<%= track.id %>/edit">Edit</a></button>
         <%- include('../partials/deleteForm', { url: `/tracks/${track.id}`}) %>
-        <a href="/artists/<%= track.artist.id %>">View Artist</a>
+        <button class="btn btn-primary"><a class="text-light" href="/artists/<%= track.artist.id %>">View Artist</a></button>
     </div>
 </nav>

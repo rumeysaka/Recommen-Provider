@@ -1,9 +1,11 @@
 <div class="container"><h2>Playlist</h2>
 <div>  
     <br>
-    <% tracks.forEach(track => { %>
+    <% tracks.forEach(track => { %> 
         <a href="/tracks/<%= track.id  %>">
-    <img src="<%= track.coverImagePath %>" height="150" width="150">
-  </a>
+    <img class="d-inline" src="<%= track.coverImagePath %>" height="75" width="75">
+        </a><a class="text-light" href="/tracks/<%= track.id  %>">
+        <h5 class="d-inline"><%= track.title %></h5></a>
+  <br>
     <% }) %>
 </div></div>
