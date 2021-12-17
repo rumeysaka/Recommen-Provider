@@ -20,6 +20,53 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.6/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <title>My Playlist</title>
+<style>
+    .mt-10 {
+        margin-top: 10 ;
+      }
+      html, body {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    display: table;
+    background-color:rgb(240, 240, 240);
+}
+
+footer {
+    background-color: grey;
+    display: table-row;
+    height: 0;
+}
+      *{
+        font-family: 'Ubuntu', sans-serif;
+      }
+      #for-hover span   {
+  display: block;
+
+          margin-left:0px;
+        margin-top:4px;
+        margin-bottom:4px;
+          padding:10px;
+      }
+      #for-hover a:hover{
+        background-color: rgb(240, 240, 240);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+      }
+      #nav-brand{
+          margin-left: 20px;
+      }
+      #for-hover-2 li{
+          display:block;
+          padding: 0 10px 0 10px;
+          margin:0px;
+      }
+      #for-hover-2 li:hover{
+        background-color: rgb(240, 240, 240);
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+      }
+    /* #center{
+      margin-left: 200px;
+    } */</style>
 </head>
 <body >
   <%- include("../partials/navbar.ejs") %> 
