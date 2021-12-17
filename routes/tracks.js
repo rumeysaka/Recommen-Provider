@@ -17,6 +17,9 @@ router.get('/', async (req, res) => {
   if(req.query.title != null && req.query.title !=""){
     query = query.regex("title", new RegExp(req.query.title,"i"))
   }
+  if(req.query.genre != null && req.query.genre !=""){
+    query = query.regex("genre", new RegExp(req.query.genre,"i"))
+  }
   if (req.query.releasedBefore != null && req.query.releasedBefore != '') {
     query = query.lte('releaseDate', req.query.releasedBefore)
   }

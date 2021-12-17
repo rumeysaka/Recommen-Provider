@@ -1,10 +1,15 @@
 <div class="container">
-  <h2>Search Tracks</h2>
+  <h4>Search Tracks</h4>
   <div>
     <form action="/tracks" method="GET">
       <label>Title</label>
       <input type="text" name="title" value="<%= searchOptions.title %>">
   </div>
+  <form action="/tracks" method="GET">
+    <label>Genre</label>
+    <input type="text" name="genre" value="<%= searchOptions.genre %>">
+</div>
+  <div class="container">
   <div>
     <label>Released After</label>
     <input type="date" name="releasedAfter" value="<%= searchOptions.releasedAfter %>">
@@ -15,7 +20,7 @@
   </div>
 
 
-  <button class="btn btn-success" type="submit">Search</button>
+  <button class="btn btn-info" type="submit">Search</button>
   </form>
   <br>
   <br>
@@ -23,6 +28,7 @@
     <a href="/tracks/<%= track.id %>">
   <img class="d-inline"  src="<%= track.coverImagePath %> " height="75" width="75">
     </a>  
-    <a href="/tracks/<%= track.id %>"><h5 class="d-inline text-light"  ><%= track.title %> </h5></a>
+    <a href="/tracks/<%= track.id %>"><h5 class="d-inline text-dark"  ><%= track.title %> </h5></a>
   <br>
   <% }) %>
+</div>

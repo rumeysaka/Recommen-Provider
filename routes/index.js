@@ -1,6 +1,7 @@
 const express = require("express")
 const router = express.Router()
 const Track = require("../models/track")
+
 router.get("/", async (req, res) => {
     let tracks
     try{

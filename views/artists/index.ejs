@@ -1,17 +1,20 @@
 <div class="container">
-<h2>Search Artists</h2>
+<h4>Search Artists</h4>
 
 <form action="/artists" method="GET">
 <label>Name</label>
 <input type="text" name="name" value="<%= searchOptions.name %>">
-<button class="btn btn-success" type="submit">Search</button>
+<button class="btn btn-info" type="submit">Search</button>
 </form>
 <br>
 <% artists.forEach(artist => { %>
-  <h4 class="d-inline"><%= artist.name %></h4>
+  <h6 class="d-inline"><%= artist.name %></h6>
   <button class="btn btn-sm btn-light opacity-50 d-inline"><a class="text-dark" href="/artists/<%= artist.id %>">View</a></button>
   <button class="btn btn-sm btn-light opacity-50 d-inline"><a class="text-dark" href="/artists/<%= artist.id %>/edit">Edit</a></button>
   <%- include('../partials/deleteForm',
   { url: `/artists/${artist.id}` }) %>
-  <br> <br>
+<br><br>
   <% }) %>
+  <br><br><br><br><br>
+  <br><br><br><br><br>
+</div>

@@ -1,10 +1,10 @@
 <div class="form-group ">
     <div>
-        <label class="text-light">Title</label>
+        <label class="text-dark">Title</label>
         <input type="text" name="title" value="<%= track.title %>">
     </div>
     <div>
-        <label class="text-light">Artist</label>
+        <label class="text-dark">Artist</label>
         <select name="artist">
             <% artists.forEach(artist => { %>
             <% if (artist.id === track.artist) { %>
@@ -16,19 +16,19 @@
         </select>
     </div>
     <div>
-        <label class="text-light">Release Date</label>
+        <label class="text-dark">Release Date</label>
         <input type="date" name="releaseDate"
             value="<%= track.releaseDate == null ? "" : track.releaseDate.toISOString().split("T")[0] %>">
     </div>
     <div>
-        <label class="text-light">Duration</label>
+        <label class="text-dark">Duration</label>
         <input type="number" name="duration" min="1" value="<%= track.duration %>">
-    </div><label class="text-light" style="float:left;">Cover</label>
+    </div><label class="text-dark" style="float:left;">Cover</label>
     <div style="width:200px; height:200px; margin-left:65px; margin-bottom: 20px;">        
         <input type="file" name="cover" class="filepond">
     </div>
     <div>
-        <label class="text-light">Genre</label>
+        <label class="text-dark">Genre</label>
         <textarea name="genre"><%= track.genre %> </textarea>
     </div>
     
