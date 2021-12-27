@@ -1,15 +1,15 @@
-
+/* 
     .mt-10 {
         margin-top: 10 ;
-      }
+      } */
       html, body {
     height: 100%;
     width: 100%;
     margin: 0;
     display: table;
-    background-color:rgb(240, 240, 240);
+    background-color: yellowgreen;
+    background-color:rgb(238, 232, 198);
 }
-
 footer {
     background-color: grey;
     display: table-row;
@@ -42,6 +42,41 @@ footer {
         background-color: rgb(240, 240, 240);
         box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
       }
-    /* #center{
-      margin-left: 200px;
-    } */
+
+.py-3 {
+  padding-top: 1rem !important;
+  padding-bottom: 1rem !important;
+}
+
+.py-lg-4 {
+  padding-top: 1.5rem !important;
+  padding-bottom: 1.5rem !important;
+}
+
+  .px-lg-3 {
+    padding-right: 1rem !important;
+    padding-left: 1rem !important;
+  }
+
+
+  .position-relative {
+    position: relative !important;
+  }
+
+  .px-lg-5 {
+    padding-right: 3rem !important;
+    padding-left: 3rem !important;
+  }
+  
+  .px-lg-4 {
+    padding-right: 1.5rem !important;
+    padding-left: 1.5rem !important;
+  }
+
+  .gx-4 {
+    --bs-gutter-x: 1.5rem;
+  }
+
+  .gx-lg-5 {
+    --bs-gutter-x: 3rem;
+  }

@@ -4,15 +4,13 @@ const Track = require('../models/track')
 const Artist = require('../models/artist')
 const { redirect } = require('express/lib/response')
 const imageMimeTypes = ['image/jpeg', 'image/png', 'images/gif']
-
+const mongoose = require("mongoose")
+const db = mongoose.connection
+const querystring = require('querystring');
 
 // All Tracks Route
 router.get('/', async (req, res) => {
-  // let query = Track.find()
-  // if (req.query.title != null && req.query.title != '') {
-  //   query = query.regex('title', new RegExp(req.query.title, 'i'))
-  // }
-  
+
   let query = Track.find()
   if(req.query.title != null && req.query.title !=""){
     query = query.regex("title", new RegExp(req.query.title,"i"))
@@ -36,6 +34,55 @@ router.get('/', async (req, res) => {
     res.redirect('/')
   }
 })
+
+router.get('/recommend', async (req, res) => {
+
+  let query = Track.find()
+  if(req.query.title != null && req.query.title !=""){
+    query = query.regex("title", new RegExp(req.query.title,"i"))
+  }
+
+  let query2 = Track.find()
+
+  try {
+    let tracks = await query.exec()
+    one(tracks)
+    
+    query2=parseData.genre
+    let cursor = await query2.exec()
+
+    // cursor = await Track.find({genre: `&{rec}`})  
+    res.render('tracks/recommend', {
+      tracks: tracks,
+      rec:rec,
+      cursor:cursor,
+      searchOptions: req.query
+    })
+  } catch {
+  console.log("error")
+    res.redirect('/')
+    
+  }
+})
+// router.get("/recommend" ,async (req,res)=>{
+
+//   let query = await Track.find()
+//   if(req.query.title != null && req.query.title !=""){
+//     query = query.regex("title", new RegExp(req.query.title,"i"))
+//     }
+  
+//   try {
+//     const tracks = await query.exec()
+//     res.render('tracks/recommend', {
+//     tracks: tracks,
+//     searchOptions: req.body
+//     })
+//   } 
+//   catch {
+//     console.log("error")
+//     res.redirect('/')
+//   }
+// })
 
 // New Track Route
 router.get('/new', async (req, res) => {
@@ -65,9 +112,7 @@ router.post('/', async (req, res) => {
 // show track route
 router.get("/:id", async (req,res) =>{
   try{
-    const track = await Track.findById(req.params.id)
-                            .populate("artist")
-                            .exec()
+    const track = await Track.findById(req.params.id).populate("artist").exec()
     res.render("tracks/show", {track: track})
   } catch{
     res.redirect("/")
@@ -153,6 +198,13 @@ async function renderFormPage(res, track, form, hasError = false) {
     res.redirect('/tracks')
   }
 }
+
+
+function one(tracks){
+  let parseData = JSON.parse(tracks)
+  rec = parseData.genre
+}
+
 
 function saveCover(track, coverEncoded) {
   if(coverEncoded== null) return

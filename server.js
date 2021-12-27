@@ -12,6 +12,7 @@ const methodOverride = require("method-override")
 const indexRouter = require("./routes/index")
 const artistRouter = require("./routes/artists")
 const trackRouter = require("./routes/tracks")
+// const recommendRouter = require("./routes/recommend")
 
 app.set("view engine" , "ejs")
 app.set("views", __dirname + "/views")
