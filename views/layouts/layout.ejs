@@ -67,7 +67,7 @@
       color: black;
     }
 
-    #for-hover span {
+    #menu span {
       display: block;
       color: black;
       margin-left: 0px;
@@ -75,8 +75,11 @@
       margin-bottom: 4px;
       padding: 10px;
     }
+    .card{
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 
-    #for-hover a:hover {
+    }
+    #menu a:hover {
       background-color: white;
       box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     }
@@ -108,7 +111,10 @@
       background-image: url("/img/img2.png");
 
     }
-
+    .card{
+      align-items: center;
+      background-color: rgba(255, 255, 255, 0.932);
+    }
     /* .flex-nowrap:after{
   content: "";
   background: url("img1.png");
@@ -124,7 +130,7 @@
       <div class="row flex-nowrap">
         <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0" id="side-bar">
           <div class="d-flex flex-column align-items-center align-items-sm-start min-vh-100">
-            <ul id="for-hover" class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start"
+            <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start"
               id="menu">
               <li class="nav-item">
                 <a href="/" class="nav-link align-middle px-0">
@@ -148,6 +154,10 @@
                 <a href="/tracks/new" class="nav-link px-0 align-middle">
                   <i class="fs-4 bi-table"></i> <span class="ms-1 d-none d-sm-inline">Add Tracks</span></a>
               </li>
+              <li>
+                <a href="/tracks/recommend" class="nav-link px-0 align-middle">
+                  <i class="fs-4 bi-table"></i> <span class="ms-1 d-none d-sm-inline">Recommend</span></a>
+              </li>
             </ul>
             <hr>
             <!-- <div class="dropdown pb-4">
@@ -169,8 +179,12 @@
         </div>
         <div class="flex col py-3" id="center">
           <div class="container my-4">
+            <div class="card">
+              <div class="card-body">
             <%- include("../partials/errorMessage.ejs")  %>
             <%- body %></div>
+            </div>
+          </div>
         </div>
         <div class="col-2" id="side-bar2">
         </div>

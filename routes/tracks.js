@@ -42,47 +42,22 @@ router.get('/recommend', async (req, res) => {
     query = query.regex("title", new RegExp(req.query.title,"i"))
   }
 
-  let query2 = Track.find()
-
   try {
-    let tracks = await query.exec()
-    one(tracks)
-    
-    query2=parseData.genre
-    let cursor = await query2.exec()
+    const tracks = await query.exec()
 
-    // cursor = await Track.find({genre: `&{rec}`})  
+    let Genre = tracks[0].genre
+     
+    let cursor = await Track.find({genre: `${tracks[0].genre}`})
+
     res.render('tracks/recommend', {
       tracks: tracks,
-      rec:rec,
       cursor:cursor,
       searchOptions: req.query
     })
   } catch {
-  console.log("error")
     res.redirect('/')
-    
   }
 })
-// router.get("/recommend" ,async (req,res)=>{
-
-//   let query = await Track.find()
-//   if(req.query.title != null && req.query.title !=""){
-//     query = query.regex("title", new RegExp(req.query.title,"i"))
-//     }
-  
-//   try {
-//     const tracks = await query.exec()
-//     res.render('tracks/recommend', {
-//     tracks: tracks,
-//     searchOptions: req.body
-//     })
-//   } 
-//   catch {
-//     console.log("error")
-//     res.redirect('/')
-//   }
-// })
 
 // New Track Route
 router.get('/new', async (req, res) => {
