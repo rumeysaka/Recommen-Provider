@@ -44,10 +44,8 @@ router.get('/recommend', async (req, res) => {
 
   try {
     const tracks = await query.exec()
-
-    let Genre = tracks[0].genre
      
-    let cursor = await Track.find({genre: `${tracks[0].genre}`})
+    const cursor = await Track.find({genre: `${tracks[0].genre}`})
 
     res.render('tracks/recommend', {
       tracks: tracks,
@@ -66,24 +64,31 @@ router.get('/new', async (req, res) => {
 
 // Create Track Route
 router.post('/', async (req, res) => {
-  const fileName = req.file != null ? req.file.filename : null
   const track = new Track({
     title: req.body.title,
     artist: req.body.artist,
     releaseDate: new Date(req.body.releaseDate),
-    duration: req.body.duraiton,
+    duration: req.body.duration,
     genre: req.body.genre
   })
 
   saveCover(track, req.body.cover)
 
-  try {
+  try { 
+    console.log("in try loop")
     const newTrack = await track.save()
-    res.redirect(`tracks/${newTrack.id}`)
-  } catch {
+    // const newTrack = await db.Track.save(track)
+
+    console.log("saved")
+    res.redirect(`/tracks/${newTrack.id}`)
+   
+  } catch (err) {
+    console.log(err)
     renderNewPage(res, track, true)
     }
 })
+
+
 // show track route
 router.get("/:id", async (req,res) =>{
   try{
@@ -145,8 +150,10 @@ router.delete('/:id', async (req, res) => {
   }
 })
 
+
 async function renderNewPage(res, track, hasError = false) {
   renderFormPage(res ,track, "new", hasError)
+
 }
 
 async function renderEditPage(res, track, hasError = false) {
@@ -167,25 +174,18 @@ async function renderFormPage(res, track, form, hasError = false) {
         params.errorMessage="Error Creating the Track"
       }
     }
-    if (hasError) params.errorMessage = 'Error Creating Track'
-    res.render(`tracks/${form}`, params)
+    res.render(`tracks/${form}`, params)    
   } catch {
     res.redirect('/tracks')
   }
 }
 
 
-function one(tracks){
-  let parseData = JSON.parse(tracks)
-  rec = parseData.genre
-}
-
-
 function saveCover(track, coverEncoded) {
-  if(coverEncoded== null) return
+  if (coverEncoded == null) return
   const cover = JSON.parse(coverEncoded)
-  if(cover != null && imageMimeTypes.includes(cover.type)){
-    track.coverImage = new Buffer.from(cover.data, "base64")
+  if (cover != null && imageMimeTypes.includes(cover.type)) {
+    track.coverImage = new Buffer.from(cover.data, 'base64')
     track.coverImageType = cover.type
   }
 }

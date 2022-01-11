@@ -1,6 +1,8 @@
 <nav class="container"> 
     <div class="form-group "><h4>New Tracks</h4> 
 <form action="/tracks" method="POST"></div>
+        <%= track.title %> 
+        <br>
         <%- include("_form_fields") %> 
 
     <button class="btn btn-primary"><a href="/tracks" class="text-light">Cancel</a></button>

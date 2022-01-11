@@ -1,32 +1,22 @@
-<div class="container">
-    <h4Recommend Tracks</h4>
+<div class="container my-4">
+    <h4>Recommend Tracks</h4>
+    <p>Recommends you similar tracks to the track you've entered</p>
     <div>
       <form action="/tracks/recommend" method="GET">
         <label>Title</label>
-        <input type="text" name="title" value="<%= searchOptions.title %>">
+        <input type="text" name="title" value="<%= searchOptions.title %>"><button class="btn btn-sm btn-info" type="submit">Search</button>
     </div>
   </div>
     <div class="container">
-    <button class="btn btn-info" type="submit">Search</button>
+    
     </form>
-    <br>
-    <br> 
-    <p>Same title</p>
-    <% tracks.forEach(track => { %>
-      <a href="/tracks/<%= track.id %>">
-    <img class="d-inline"  src="<%= track.coverImagePath %> " height="75" width="75">
-      </a>  
-      <a href="/tracks/<%= track.id %>"><h5 class="d-inline"  ><%= track.title %> </h5></a>
-      <a href="/tracks/<%= track.id %>"><h5 class="d-inline"  ><%= track.genre %> </h5></a>
-    <br>
-    <% }) %>
-    <p>same genre</p>
     <% cursor.forEach(track => { %>
+      <% if(cursor != null){ %>
       <a href="/tracks/<%= track.id %>">
     <img class="d-inline"  src="<%= track.coverImagePath %> " height="75" width="75">
       </a>  
       <a href="/tracks/<%= track.id %>"><h5 class="d-inline"  ><%= track.title %> </h5></a>
-      <a href="/tracks/<%= track.id %>"><h5 class="d-inline"  ><%= track.genre %> </h5></a>
     <br>
+    <% } %> 
     <% }) %>
   </div>

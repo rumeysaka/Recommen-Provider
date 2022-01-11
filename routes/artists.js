@@ -35,7 +35,7 @@ router.post('/', async (req, res) => {
     })
     try {
         const newArtist = await artist.save()
-        res.redirect(`/artists/${artist.id}`)
+        res.redirect(`artists/${newArtist.id}`)
     } catch {
 
         res.render('artists/new', {

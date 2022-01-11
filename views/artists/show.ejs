@@ -1,11 +1,11 @@
 <nav class="container"> 
-    <div class="mx-auto"> <h4>Edit Artist</h4> 
+    <div class="mx-auto my-4"> <h4>Edit Artist</h4> 
  
 <h4 class="text-dark"><%= artist.name %> </h4>
-<a class="btn btn-primary" href="/artists/<%= artist.id %>/edit">Edit</a>
+<a class="btn btn-primary btn-sm" href="/artists/<%= artist.id %>/edit">Edit</a>
 <%- include('../partials/deleteForm',
                  { url: `/artist/${artist.id}`}) %> 
-
+<br><br>
 <% if (tracksByArtist.length > 0) { %>
     <h4>Tracks by Artist</h4>
     <% tracksByArtist.forEach(track => { %>

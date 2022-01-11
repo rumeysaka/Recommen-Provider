@@ -12,7 +12,7 @@ artistSchema.pre('remove', function(next) {
       if (err) {
         next(err)
       } else if (track.length > 0) {
-        next(new Error('This still'))
+        next(new Error('This artists has tracks still'))
       } else {
         next()
       }
