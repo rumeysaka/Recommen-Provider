@@ -73,16 +73,11 @@ router.post('/', async (req, res) => {
   })
 
   saveCover(track, req.body.cover)
-
-  try { 
-    console.log("in try loop")
+  
+  try {
     const newTrack = await track.save()
-    // const newTrack = await db.Track.save(track)
-
-    console.log("saved")
-    res.redirect(`/tracks/${newTrack.id}`)
-   
-  } catch (err) {
+    res.redirect("tracks")
+  } catch(err) {
     console.log(err)
     renderNewPage(res, track, true)
     }
@@ -182,12 +177,13 @@ async function renderFormPage(res, track, form, hasError = false) {
 
 
 function saveCover(track, coverEncoded) {
-  if (coverEncoded == null) return
+  if(coverEncoded== null) return
   const cover = JSON.parse(coverEncoded)
-  if (cover != null && imageMimeTypes.includes(cover.type)) {
-    track.coverImage = new Buffer.from(cover.data, 'base64')
+  if(cover != null && imageMimeTypes.includes(cover.type)){
+    track.coverImage = new Buffer.from(cover.data, "base64")
     track.coverImageType = cover.type
   }
 }
+
 
 module.exports = router
