@@ -1,10 +1,22 @@
 const express = require('express')
 const router = express.Router()
+const multer = require('multer')
+const path = require('path')
+const fs = require('fs')
 const Track = require('../models/track')
 const Artist = require('../models/artist')
+<<<<<<< HEAD
 const { redirect } = require('express/lib/response')
+=======
+const uploadPath = path.join('public', Track.coverImageBasePath)
+>>>>>>> parent of 9bae50f (file upload renewed)
 const imageMimeTypes = ['image/jpeg', 'image/png', 'images/gif']
-
+const upload = multer({
+  dest: uploadPath,
+  fileFilter: (req, file, callback) => {
+    callback(null, imageMimeTypes.includes(file.mimetype))
+  }
+})
 
 // All Tracks Route
 router.get('/', async (req, res) => {
@@ -43,24 +55,35 @@ router.get('/new', async (req, res) => {
 })
 
 // Create Track Route
-router.post('/', async (req, res) => {
+router.post('/', upload.single('cover'), async (req, res) => {
   const fileName = req.file != null ? req.file.filename : null
   const track = new Track({
     title: req.body.title,
     artist: req.body.artist,
     releaseDate: new Date(req.body.releaseDate),
     duration: req.body.duraiton,
+<<<<<<< HEAD
     genre: req.body.genre
+=======
+    coverImageName: fileName,
+    description: req.body.description
+>>>>>>> parent of 9bae50f (file upload renewed)
   })
-
-  saveCover(track, req.body.cover)
 
   try {
     const newTrack = await track.save()
+<<<<<<< HEAD
     res.redirect(`tracks/${newTrack.id}`)
+=======
+    // res.redirect(`books/${newBook.id}`)
+    res.redirect("tracks")
+>>>>>>> parent of 9bae50f (file upload renewed)
   } catch {
-    renderNewPage(res, track, true)
+    if (track.coverImageName != null) {
+      removeTrackCover(track.coverImageName)
     }
+    renderNewPage(res, track, true)
+  }
 })
 // show track route
 router.get("/:id", async (req,res) =>{
@@ -125,6 +148,12 @@ router.delete('/:id', async (req, res) => {
   }
 })
 
+function removeTrackCover(fileName) {
+  fs.unlink(path.join(uploadPath, fileName), err => {
+    if (err) console.error(err)
+  })
+}
+
 async function renderNewPage(res, track, hasError = false) {
   renderFormPage(res ,track, "new", hasError)
 }
@@ -151,15 +180,6 @@ async function renderFormPage(res, track, form, hasError = false) {
     res.render(`tracks/${form}`, params)
   } catch {
     res.redirect('/tracks')
-  }
-}
-
-function saveCover(track, coverEncoded) {
-  if(coverEncoded== null) return
-  const cover = JSON.parse(coverEncoded)
-  if(cover != null && imageMimeTypes.includes(cover.type)){
-    track.coverImage = new Buffer.from(cover.data, "base64")
-    track.coverImageType = cover.type
   }
 }
 

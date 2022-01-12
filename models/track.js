@@ -1,4 +1,6 @@
 const mongoose = require("mongoose")
+const path = require("path")
+const coverImageBasePath = "uploads/trackCovers"
 
 const trackSchema = new mongoose.Schema({
     title: {
@@ -21,11 +23,7 @@ const trackSchema = new mongoose.Schema({
         require: true,
         default: Date.now
     },
-    coverImage:{
-        type: Buffer,
-        required: true
-    },
-    coverImageType: {
+    coverImageName:{
         type: String,
         required: true
     },
@@ -37,11 +35,12 @@ const trackSchema = new mongoose.Schema({
 })
 
 trackSchema.virtual("coverImagePath").get(function(){
-    if(this.coverImage != null&& this.coverImageType != null){
-        return `data:${this.coverImageType};charset=utf-8;base64,${this.coverImage.toString("base64")}`
+    if(this.coverImageName!= null){
+        return path.join("/", coverImageBasePath, this.coverImageName)
     }
 })
 
 
 
 module.exports = mongoose.model("Track", trackSchema)
+module.exports.coverImageBasePath = coverImageBasePath 

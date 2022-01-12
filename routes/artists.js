@@ -7,43 +7,45 @@ const Track = require("../models/track")
 router.get('/', async (req, res) => {
     let searchOptions = {}
     if (req.query.name != null && req.query.name !== '') {
-      searchOptions.name = new RegExp(req.query.name, 'i')
-     }
-    try {
+        searchOptions.name = new RegExp(req.query.name, 'i')
+    }
+    try{
         const artists = await Artist.find(searchOptions)
         res.render('artists/index', {
-          artists: artists,
-          searchOptions: req.query
-               })
-    } catch {
-        res.redirect('/')
+            artists: artists,
+            searchOptions: req.query
+        })
+  } catch {
+    res.redirect('/')
     }
 })
 
 
 //New Arstist Route
 router.get('/new', (req, res) => {
-    res.render('artists/new', {
-        artist: new Artist()
-    })
-})
+    res.render('artists/new', { artist: new Artist() })
+  })
 
 //Create Artist Route
 router.post('/', async (req, res) => {
     const artist = new Artist({
         name: req.body.name
     })
-    try {
+    try{
         const newArtist = await artist.save()
+<<<<<<< HEAD
         res.redirect(`/artists/${artist.id}`)
     } catch {
+=======
+        res.redirect(`artists`)
+    } catch{
+>>>>>>> parent of 3c83d35 (add düzeldi)
 
-        res.render('artists/new', {
-            artist: artist,
-            errorMessage: 'Error creating artist'
+    res.render('artists/new', {            artist: artist,
+            errorMessage: "Error"
         })
     }
-
+   
 })
 router.get('/:id', async (req, res) => {
     try {
